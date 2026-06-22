@@ -1,0 +1,15 @@
+.venv/
+_unused_current/
+logs/
+__pycache__/
+*.py[cod]
+*$py.class
+
+.idea/
+.ollamassist/
+
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+*.log

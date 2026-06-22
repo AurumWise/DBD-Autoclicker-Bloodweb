@@ -1,0 +1,20 @@
+{
+  "tool_x": 1586,
+  "tool_y": 0,
+  "capture_x": 995.0,
+  "capture_y": 619.0,
+  "threshold": 0.81,
+  "pre_click_delay_seconds": 0.35,
+  "delay_between_clicks_seconds": 0.9,
+  "click_hold_seconds": 0.05,
+  "center_hold_seconds": 0.1,
+  "after_center_delay_seconds": 2.0,
+  "screenshot_settle_seconds": 0.2,
+  "mouse_check_interval_seconds": 0.1,
+  "mouse_move_tolerance_pixels": 45.0,
+  "detailed_match_min_score": 0.75,
+  "detailed_match_max_score": 0.85,
+  "matcher_version": 2,
+  "capture_w": 112.26919491311733,
+  "capture_h": 112.26919491311733
+}

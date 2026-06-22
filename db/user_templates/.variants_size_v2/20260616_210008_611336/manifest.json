@@ -1,0 +1,9 @@
+{
+  "algorithm": "tone_variants_v1",
+  "match_size": 113,
+  "crop_ratio": 0.75,
+  "modes": [
+    "light",
+    "dark"
+  ]
+}
