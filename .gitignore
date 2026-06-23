@@ -28,3 +28,4 @@ db/user_templates/
 
 # Local media captures and release-only/demo artifacts.
 chentr.png
+release/

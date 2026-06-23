@@ -190,6 +190,24 @@ DBD Автокликер Bloodweb предназначен для локальн
 
 Проект экспериментальный. Возможны ошибки, изменения формата настроек, доработка интерфейса и настройка алгоритмов распознавания.
 
+## Сборка portable-релиза
+
+Для сборки ZIP с `DBD Autoclicker Bloodweb.exe`:
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts\install_release_tools.ps1
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts\build_release.ps1
+```
+
+Если `github.com` или `pypi.org` недоступны, можно попробовать скрипт с зеркалами:
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts\install_release_tools_no_vpn.ps1
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts\build_release.ps1
+```
+
+Готовый архив создаётся в папке `release/`. Если Electron runtime или PyInstaller ещё не скачаны, скрипту нужен доступ к одному из доступных источников загрузки.
+
 Сообщения об ошибках, идеи и обновления:
 
 - 🎥 YouTube: [@AurumWise](https://www.youtube.com/@AurumWise)
