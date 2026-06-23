@@ -13,3 +13,18 @@ __pycache__/
 .ruff_cache/
 
 *.log
+
+node_modules/
+electron/dist/
+
+# Local runtime/user data. The app can recreate these files.
+db/search_templates.json
+db/grid_templates.json
+db/ui_state.json
+db/safety_consent.json
+db/center_anchor.json
+db/center_anchor.png
+db/user_templates/
+
+# Local media captures and release-only/demo artifacts.
+chentr.png

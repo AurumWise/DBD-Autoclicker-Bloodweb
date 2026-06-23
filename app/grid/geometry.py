@@ -7,11 +7,13 @@ from pathlib import Path
 from app.models import GridTemplate, NodeROI
 
 
-RING_SPECS = {
-    1: {"count": 6, "start_deg": -90.0},
-    2: {"count": 12, "start_deg": -75.0},
-    3: {"count": 12, "start_deg": -90.0},
+RING_ANGLES = {
+    1: [-90.0, -30.0, 30.0, 90.0, 150.0, 210.0],
+    2: [-75.0, -45.0, -15.0, 15.0, 45.0, 75.0, 105.0, 135.0, 165.0, 195.0, 225.0, 255.0],
+    3: [-90.0, -60.0, -30.0, 0.0, 30.0, 60.0, 90.0, 120.0, 150.0, 180.0, 210.0, 240.0],
 }
+
+RING_SPECS = {ring: {"count": len(angles), "angles_deg": angles} for ring, angles in RING_ANGLES.items()}
 
 
 class GridTemplateRepository:
@@ -52,8 +54,7 @@ def build_rois(template: GridTemplate, image_width: int, image_height: int) -> l
     half = template.roi_size / 2.0
     for ring, spec in RING_SPECS.items():
         radius = getattr(template, f"ring{ring}_radius")
-        for index in range(spec["count"]):
-            angle_deg = spec["start_deg"] + index * (360.0 / spec["count"])
+        for index, angle_deg in enumerate(spec["angles_deg"]):
             x, y = transform_point(template, radius, angle_deg)
             x1 = max(0, int(round(x - half)))
             y1 = max(0, int(round(y - half)))

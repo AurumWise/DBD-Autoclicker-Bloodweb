@@ -1,1 +1,1 @@
-# App package for the DBD Bloodweb bot MVP.
+# App package for DBD Autoclicker Bloodweb.

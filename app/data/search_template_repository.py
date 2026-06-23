@@ -28,6 +28,7 @@ DEFAULT_DATA = {
 
 class SearchTemplateRepository:
     def __init__(self, root_dir: Path) -> None:
+        self.root_dir = root_dir
         self.path = root_dir / "db" / "search_templates.json"
         self.image_dir = root_dir / "db" / "user_templates"
         self.image_dir.mkdir(parents=True, exist_ok=True)
@@ -43,6 +44,7 @@ class SearchTemplateRepository:
 
     def save(self, payload: dict) -> None:
         normalized = self.normalize(payload)
+        self.make_paths_portable(normalized)
         self.path.write_text(json.dumps(normalized, ensure_ascii=False, indent=2), encoding="utf-8")
 
     def normalize(self, data: dict) -> dict:
@@ -79,11 +81,12 @@ class SearchTemplateRepository:
         for item in items:
             if isinstance(item, dict):
                 image_path = item.get("image_path")
-                if image_path and Path(image_path).exists():
+                resolved_path = self.resolve_image_path(image_path)
+                if resolved_path and resolved_path.exists():
                     normalized_item = {
-                        "id": item.get("id") or Path(image_path).stem,
+                        "id": item.get("id") or resolved_path.stem,
                         "label": item.get("label") or item.get("name") or item.get("id") or "template",
-                        "image_path": image_path,
+                        "image_path": str(resolved_path),
                     }
                     for key in ("image_width", "image_height", "match_size", "capture_roi_size", "crop_ratio", "variant_algorithm"):
                         if key in item:
@@ -93,12 +96,39 @@ class SearchTemplateRepository:
             # legacy string entries are dropped on purpose: the new mode is user-captured snippets only.
         return normalized
 
+    def resolve_image_path(self, image_path: str | None) -> Path | None:
+        if not image_path:
+            return None
+        path = Path(image_path)
+        if path.is_absolute():
+            return path
+        return self.root_dir / path
+
+    def make_paths_portable(self, payload: dict) -> None:
+        for item in self.iter_items(payload):
+            image_path = item.get("image_path")
+            resolved_path = self.resolve_image_path(image_path)
+            if not resolved_path:
+                continue
+            try:
+                item["image_path"] = str(resolved_path.relative_to(self.root_dir))
+            except ValueError:
+                item["image_path"] = str(resolved_path)
+
     @staticmethod
-    def enrich_item_metadata_from_png(item: dict) -> None:
+    def iter_items(payload: dict):
+        for item in payload.get("priority_items", []):
+            yield item
+        for template in payload.get("survivor_templates", []):
+            yield from template.get("items", [])
+        for template in payload.get("killer_templates", []):
+            yield from template.get("items", [])
+
+    def enrich_item_metadata_from_png(self, item: dict) -> None:
         image_path = item.get("image_path")
         if not image_path:
             return
-        image = imread_unicode(Path(image_path), -1)
+        image = imread_unicode(self.resolve_image_path(image_path), -1)
         if image is None:
             return
         height, width = image.shape[:2]
