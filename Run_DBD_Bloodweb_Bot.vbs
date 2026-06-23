@@ -2,18 +2,11 @@ Set shell = CreateObject("WScript.Shell")
 Set fso = CreateObject("Scripting.FileSystemObject")
 
 projectDir = fso.GetParentFolderName(WScript.ScriptFullName)
-pythonwPath = projectDir & "\.venv\Scripts\pythonw.exe"
-mainPath = projectDir & "\main.py"
+mainLauncher = projectDir & "\Run_DBD_Autoclicker_Bloodweb.vbs"
 
-If Not fso.FileExists(pythonwPath) Then
-    MsgBox "Не найден Python в .venv: " & pythonwPath, 16, "DBD Bloodweb Bot"
+If Not fso.FileExists(mainLauncher) Then
+    MsgBox "Main launcher not found: " & mainLauncher, 16, "DBD Autoclicker Bloodweb"
     WScript.Quit 1
 End If
 
-If Not fso.FileExists(mainPath) Then
-    MsgBox "Не найден main.py: " & mainPath, 16, "DBD Bloodweb Bot"
-    WScript.Quit 1
-End If
-
-shell.CurrentDirectory = projectDir
-shell.Run """" & pythonwPath & """ """ & mainPath & """", 0, False
+shell.Run """" & mainLauncher & """", 0, False

@@ -19,7 +19,3 @@ def configure_logging(root_dir: Path) -> None:
     file_handler = RotatingFileHandler(log_path, maxBytes=1_000_000, backupCount=3, encoding="utf-8")
     file_handler.setFormatter(formatter)
     logger.addHandler(file_handler)
-
-    console_handler = logging.StreamHandler()
-    console_handler.setFormatter(formatter)
-    logger.addHandler(console_handler)

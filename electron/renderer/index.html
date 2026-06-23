@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DBD Autoclicker Bloodweb</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="titlebar">
+      <div class="logo">▦</div>
+      <div class="title">DBD Autoclicker Bloodweb</div>
+      <div id="statusPill" class="status-pill"><span></span><b>Готов</b></div>
+      <button id="pinButton" class="win-btn pin" title="Закрепить поверх всех окон">⌖</button>
+      <button id="minButton" class="win-btn" title="Свернуть">-</button>
+      <button id="closeButton" class="win-btn close" title="Закрыть">×</button>
+    </header>
+
+    <main class="content">
+      <section class="toolbar">
+        <button id="gridButton" class="btn grid">▦ Паутина</button>
+        <button id="addCaptureButton" class="btn capture" type="button">Скрин</button>
+        <button id="settingsButton" class="btn icon" title="Настройки">⚙</button>
+        <button id="tutorialButton" class="btn icon" title="Обучение">?</button>
+      </section>
+      <div id="gridMessage" class="grid-state">Сетка сохранена</div>
+
+      <section class="lists-grid">
+        <div class="section">
+          <div class="section-head"><strong>Приоритет</strong><span id="priorityCount">0</span></div>
+          <div id="priorityList" class="item-list"></div>
+          <div class="list-actions">
+            <button id="priorityUp" class="list-action" title="Поднять">↑</button>
+            <button id="priorityDown" class="list-action" title="Опустить">↓</button>
+            <button id="priorityToTemplate" class="list-action" title="Перенести в текущий шаблон">→</button>
+            <button id="priorityEdit" class="list-action" title="Редактировать">✎</button>
+            <button id="priorityRemove" class="list-action danger" title="Удалить">×</button>
+          </div>
+        </div>
+        <div class="section">
+          <div class="section-head template-head">
+            <div class="template-picker-wrap">
+              <button id="templatePicker" class="template-picker" type="button" title="Выбрать шаблон">
+                <span id="templateTitle">Текущий шаблон</span><span id="templateArrow" class="template-arrow">▾</span>
+              </button>
+              <div id="templateMenu" class="template-menu" aria-hidden="true"></div>
+            </div>
+            <div class="template-actions">
+              <button id="templateCreate" class="template-action" title="Новый шаблон">＋</button>
+              <button id="templateRename" class="template-action" title="Переименовать">✎</button>
+              <button id="templateDuplicate" class="template-action" title="Дублировать">⧉</button>
+              <button id="templateDelete" class="template-action danger" title="Удалить">×</button>
+            </div>
+            <span id="templateCount">0</span>
+          </div>
+          <div id="templateList" class="item-list"></div>
+          <div class="list-actions">
+            <button id="templateUp" class="list-action" title="Поднять">↑</button>
+            <button id="templateDown" class="list-action" title="Опустить">↓</button>
+            <button id="templateToPriority" class="list-action" title="Перенести в приоритет">←</button>
+            <button id="templateEdit" class="list-action" title="Редактировать">✎</button>
+            <button id="templateRemove" class="list-action danger" title="Удалить">×</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="run-panel">
+        <div class="run-head">
+          <div>
+            <div id="runStatus" class="run-status">Готов</div>
+            <div id="runMessage" class="run-message">Готово</div>
+          </div>
+          <div id="nextClick" class="next-click">Следующий клик не выбран</div>
+        </div>
+        <div class="controls">
+          <button id="testButton" class="btn test">Тест</button>
+          <button id="startButton" class="btn primary">Start</button>
+          <button id="stopButton" class="btn stop">■ Stop · F8</button>
+        </div>
+      </section>
+
+      <section class="queue-panel">
+        <div class="section-head"><strong>Очередь кликов</strong><span id="queueCount">Тест ещё не запускался</span></div>
+        <div id="queueList" class="queue-list"></div>
+      </section>
+
+      <p class="hint">Тест строит очередь без кликов. Start выполняет её. Ручное движение мыши останавливает работу.</p>
+
+      <footer class="social-footer">
+        <span>DBD Autoclicker Bloodweb</span><span>·</span>
+        <button id="authorLink" class="link-button">AurumWise</button><span>·</span>
+        <button id="vkLink" class="link-button">VK</button><span>·</span>
+        <button id="tgLink" class="link-button">TG</button>
+      </footer>
+    </main>
+  </div>
+
+  <div id="settingsModal" class="modal-backdrop" aria-hidden="true">
+    <section class="modal">
+      <header class="modal-head">
+        <strong>Настройки</strong>
+        <button class="modal-close" data-close="settingsModal">×</button>
+      </header>
+      <nav class="tabs wide">
+        <button data-settings-tab="general" class="active">Общие</button>
+        <button data-settings-tab="recognition">Распознавание</button>
+        <button data-settings-tab="timing">Тайминги</button>
+        <button data-settings-tab="mouse">Мышь</button>
+        <button data-settings-tab="log">Лог</button>
+      </nav>
+      <div id="settingsBody" class="modal-body"></div>
+      <footer id="settingsActions" class="modal-actions"></footer>
+    </section>
+  </div>
+
+  <div id="itemEditModal" class="modal-backdrop" aria-hidden="true">
+    <section class="modal compact-modal">
+      <header class="modal-head">
+        <strong id="itemEditTitle">Редактировать элемент</strong>
+        <button class="modal-close" data-close="itemEditModal">×</button>
+      </header>
+      <form id="itemEditForm" class="modal-body"></form>
+      <footer id="itemEditFooter" class="modal-actions"></footer>
+    </section>
+  </div>
+
+  <div id="templateActionModal" class="modal-backdrop" aria-hidden="true">
+    <section class="modal compact-modal">
+      <header class="modal-head">
+        <strong id="templateActionTitle">Шаблон</strong>
+        <button class="modal-close" data-close="templateActionModal">×</button>
+      </header>
+      <form id="templateActionForm" class="modal-body"></form>
+      <footer id="templateActionFooter" class="modal-actions"></footer>
+    </section>
+  </div>
+
+  <script src="../dist/renderer/renderer.js"></script>
+</body>
+</html>
