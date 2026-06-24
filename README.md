@@ -1,22 +1,5 @@
 # DBD Autoclicker Bloodweb / DBD Автокликер Bloodweb
 
-**Версия:** v0.1.0
-
-> Неофициальный локальный помощник для работы с Bloodweb в **Dead by Daylight**.  
-> Проект анализирует изображение экрана, сопоставляет предметы с шаблонами и, по команде пользователя, временно управляет мышью для выполнения кликов.
-
-С вопросами и предложениями:
-<p align="center">
-  <a href="https://www.youtube.com/@AurumWise">YouTube</a>
-  ·
-  <a href="https://vk.com/aurumwise">VK</a>
-  ·
-  <a href="https://t.me/AurumWise">Telegram</a>
-</p>
-
-
----
-
 ## ⚠️ ВАЖНО: ПРОГРАММА УПРАВЛЯЕТ МЫШЬЮ
 
 DBD Автокликер Bloodweb может **перемещать курсор и выполнять клики** по результатам локального распознавания изображений.
@@ -34,7 +17,20 @@ DBD Автокликер Bloodweb может **перемещать курсор
 Программа распространяется **«как есть»** (`AS IS`), без гарантий бесперебойной, безопасной, точной или подходящей для конкретной цели работы.
 
 Скачивайте готовую версию здесь:  
-➡️ [Скачать последнюю версию из Releases](https://github.com/AurumWise/DBD-Autoclicker-Bloodweb/releases/tag/v0.1.0)
+➡️ [Скачать последнюю версию из Releases](https://github.com/AurumWise/DBD-Autoclicker-Bloodweb/releases)
+
+**Версия:** v0.1.
+> Неофициальный локальный помощник для работы с Bloodweb в **Dead by Daylight**.  
+> Проект анализирует изображение экрана, сопоставляет предметы с шаблонами и, по команде пользователя, временно управляет мышью для выполнения кликов.
+
+С вопросами и предложениями:
+<p align="center">
+  <a href="https://www.youtube.com/@AurumWise">YouTube</a>
+  ·
+  <a href="https://vk.com/aurumwise">VK</a>
+  ·
+  <a href="https://t.me/AurumWise">Telegram</a>
+</p>
 
 ---
 
